@@ -32,6 +32,8 @@
                 </li>
             </ul>
         </nav>
+
+        <div class="clearfix"></div>
     </header>
 
     <div id="container">
@@ -74,13 +76,18 @@
         <div id="principal">
             <h1>Ultimas entradas</h1>
             <article class="entrada">
+                <a href="">
                 <h2>Titulo de la entrada</h2>
                 <p>
                     Texto de la entrada
                 </p>
+                </a>
             </article>
+            <div id="ver_todas">
+            <a href="">Ver todas las entradas</a>
         </div>
-
+        </div>        
+        <div class="clearfix"></div>
     </div>
     <!-- Footer -->
     <footer id="footer">
