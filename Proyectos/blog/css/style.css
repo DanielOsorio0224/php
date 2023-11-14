@@ -18,7 +18,7 @@ body{
 }
 
 #header{
-    width: 70%;
+    width: 80%;
     height: auto;
     background: transparent;
     margin: 0px auto;
@@ -30,8 +30,7 @@ body{
     height: 100px;
 }
 
-#logo a{
-    font-family: sans-serif;
+#logo a{    
     font-size: 40px;
     letter-spacing: 2px;
     color: #2979cd;
@@ -49,12 +48,12 @@ body{
 #menu{
     clear: both;
     width: 100%;
-    height: 45px;
+    height: 45px;    
     background: linear-gradient(to bottom, #f9f9f9 0px, #e9e9e9 100%);    
     border: 1px solid #c9c9c9;
     border-radius: 8px;
     box-shadow: 0px 1px 1px #ccc;
-    overflow: hidden;
+    overflow: hidden;    
 }
 
 #menu ul{
@@ -79,8 +78,8 @@ body{
     background: linear-gradient(to bottom, #f2f2f2 0px, #dad9d4 100%);
 }
 
-#contenedor{
-    width: 85%;
+#container{
+    width: 90%;
     height: auto;
     margin: 0px auto;
     margin-top: 30px;
@@ -89,13 +88,13 @@ body{
 
 #sidebar{
     float: right;
-    width: 25%;
+    width: 30%;
     min-height: auto;
 }
 
-.bloque{
+.block{
     display: block;
-    width: 90%;
+    width: 70%;
     margin: 0px auto;
     margin-bottom: 35px;
     background: white;
@@ -104,7 +103,7 @@ body{
 
 }
 
-.bloque h3{
+.block h3{
     margin-bottom: 10px;
 }
 
