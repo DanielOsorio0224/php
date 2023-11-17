@@ -16,18 +16,19 @@
             </a>
         </div>
     
-    <!-- Menu -->
+    <!-- Menu -->        
         <nav id="menu">
             <ul>
                 <li>
                     <a href="index.php">Inicio</a>
                 </li>
-                <li>
-                    <a href="index.php">Cateoria 1</a>
-                </li>
-                <li>
-                    <a href="index.php">CAtegoria 2</a>
-                </li>
+                <?php $categorias = conseguirCategorias(); 
+                        while($categoria = mysqli_fetch_assoc($db)): 
+                 ?>
+                    <li>
+                        <a href="categoria.php?id=<?=$categoria['id'] ?>"><?=$categoria['nombre'] ?></a>
+                    </li>        
+                <?php endwhile ?>    
                 <li>
                     <a href="index.php">Sobre mi</a>
                 </li>

@@ -4,14 +4,20 @@
     <!-- Caja principal -->
         <div id="principal">
             <h1>Ultimas entradas</h1>
-            <article class="entrada">
-                <a href="">
-                <h2>Titulo de la entrada</h2>
-                <p>
-                    Texto de la entrada
-                </p>
-                </a>
-            </article>
+            <?php
+                $entradas = conseguirEntradas($db);
+                while($entrada = mysqli_fetch_assoc($entradas)):
+            ?>
+                <article class="entrada">
+                    <a href="">
+                    <h2><?= $entrada['titulo'] ?></h2>
+                    <p>
+                    <?= substr($entrada['descripcion'],0,200)." ..." ?>
+                    </p>
+                    </a>
+                </article>
+            <?php	endwhile ?>
+            
             <div id="ver_todas">
             <a href="">Ver todas las entradas</a>
         </div>
