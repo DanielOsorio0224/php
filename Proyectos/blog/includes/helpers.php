@@ -12,10 +12,15 @@ function conseguirCategorias($conexion){
     return $resuult;
 } 
 
-function conseguirEntradas($conexion, $limit = null) {
+function conseguirEntradas($conexion, $limit = null, $busqueda = null) {
     $sql = "SELECT e.*,c.* FROM entradas e".
             "INNER JOIN categorias c ON e.categoria_id = c.id ".
             "ORDER BY e.id DESC ";
+
+    if(!empty($busqueda)){
+        $sql .= "WHERE e.titulo LIKE '%$busqueda%'" ;
+    }   
+
     if($limit){
                 $sql .= "LIMIT 4";
             }        

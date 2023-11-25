@@ -1,6 +1,14 @@
 <?php require_once 'lateral.php';  ?>
 <!-- BArra lateral -->
 <aside id="sidebar" >
+
+            <div id="buscador" class="block">
+                <h3>Buscar</h3>
+                <form action="buscar.php" method="POST">                    
+                    <input type="text" name="buscar" />
+                    <input type="submit" value="Buscar">
+                </form>
+            </div>
             <div id="login" class="block">
                 <h3>Identificate</h3>
                 <form action="login.php" method="POST">
