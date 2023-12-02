@@ -5,7 +5,13 @@ class Usuario{
     public $apellido;
 
     public function __construct() {
+        $this->nombre = "Daniel";
+        $this->apellido = "Osorio";
         echo 'Instancia del objeto creada';
+    }
+
+    public function __toString(){
+        return "Hola, {$this->nombre}, tu apellido es {$this->apellido}";
     }
 
     public function __destruct(){
@@ -14,6 +20,7 @@ class Usuario{
 }
 
 $usuario = new Usuario();
+echo $usuario;
 
 for($i=0; $i <= 50 ; $i++){
     echo $i."<br>";
