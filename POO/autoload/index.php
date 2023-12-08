@@ -20,7 +20,22 @@ class Principal{
         $this->categoria = new Categoria();
         $this->entrada = new Entrada();
     }
+
+    public function informacion(){
+        echo __CLASS__;
+        echo __FILE__;
+    }
 }
 
 $principal = new Principal();
 var_dump($principal->usuario);
+
+$principal->informacion();
+
+//comprobar si existe una clase
+$clase = @class_exists('MisClases\Usuario');
+if($clase){
+    echo 'La clase existe';
+}else{
+    echo 'No existe la clase';
+}
