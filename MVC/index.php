@@ -1,10 +1,17 @@
 <?php
 require_once 'controllers/usuario.php';
+require_once 'controllers/nota.php';
+if(isset($_GET['controller'])){
+    $nombre_controlador = $_GET['controller'].'Controller';
+}else{
+    echo 'No hay';
+    exit();
+}
 
 
-if(isset($_GET['controller']) && class_exists($_GET['controller'])){
-    $nombre_controlador = $_GET['controller'];
-    $controlador = new $nombre_controlador;
+if(class_exists($_GET['controller'])){
+    
+    $controlador = new $nombre_controlador();
 }else{
     echo 'Noexiste la pagina';
 }

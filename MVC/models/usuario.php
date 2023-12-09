@@ -1,6 +1,6 @@
 <?php
 
-class Usuario{
+class Usuario extends ModeloBase{
     public $nombre;
     public $apellidos;
     public $email;
@@ -30,8 +30,5 @@ class Usuario{
     public function setPassword($password){
         $this->password = $password;
     }
-
-    public function conseguirTodos(){
-        return 'Sacando los usuarios';
-    }
+    
 }
