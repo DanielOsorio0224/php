@@ -1,3 +1,5 @@
-<?php
+<h1>Lista de Usuarios</h1>
 
-echo $todos_usuarios;    
+<?php while($usuario = $todos_usuarios->fetch_object()): ?>
+    <?= $usuario->titulo ?> - <?= $usuario->fecha ?>
+<?php endwhile; ?>        
