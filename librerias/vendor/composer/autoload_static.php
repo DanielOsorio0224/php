@@ -15,6 +15,20 @@ class ComposerStaticInitc5e4dce38859cfa3fcdfe1c976dcf5f4
         '30eee86291d721c2174ad40239331e78' => __DIR__ . '/..' . '/spipu/html2pdf/_class/parsingCss.class.php',
     );
 
+    public static $prefixesPsr0 = array (
+        'P' => 
+        array (
+            'PHPThumb\\Tests' => 
+            array (
+                0 => __DIR__ . '/..' . '/masterexploder/phpthumb/tests',
+            ),
+            'PHPThumb' => 
+            array (
+                0 => __DIR__ . '/..' . '/masterexploder/phpthumb/src',
+            ),
+        ),
+    );
+
     public static $classMap = array (
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
         'Datamatrix' => __DIR__ . '/..' . '/tecnickcom/tcpdf/include/barcodes/datamatrix.php',
@@ -37,6 +51,7 @@ class ComposerStaticInitc5e4dce38859cfa3fcdfe1c976dcf5f4
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
+            $loader->prefixesPsr0 = ComposerStaticInitc5e4dce38859cfa3fcdfe1c976dcf5f4::$prefixesPsr0;
             $loader->classMap = ComposerStaticInitc5e4dce38859cfa3fcdfe1c976dcf5f4::$classMap;
 
         }, null, ClassLoader::class);
