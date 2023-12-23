@@ -6,6 +6,7 @@
         <link rel="stylesheet" href="assets/css/styles.css">
     </head>    
     <body>
+        <div id="container">
         <header id="header">
             <div id="logo">
                 <img src="assets/camisa.jpg" alt="Camisa">
@@ -60,5 +61,6 @@
         <footer id="footer">
             <p>Desarrollado por Daniel Osorio &copy; <?=date('Y') ?></p>
         </footer>
+        </div>
     </body>    
 </html>    
