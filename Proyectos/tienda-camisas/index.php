@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8" />
         <title>Tienda de Camisetas</title>
-        <link rel="stylesheet" href="assets/css/styles.css">
+        <link rel="stylesheet" href="http://localhost/master-php/proyectos/tienda-camisas/assets/css/styles.css?v=1.0">
     </head>    
     <body>
         <div id="container">
@@ -55,11 +55,12 @@
             </aside>
 
             <div id="central">
+                <h1>Productos destacados</h1>
                 <div class="product">
                     <img src="assets/camisa.jpg" alt="camiseta">
                     <h2>Camisa Negra</h2>
                     <p>50 dolares</p>
-                    <a href="#">Comprar</a>
+                    <a href="#" class="button">Comprar</a>
                 </div>
             </div>
         </div>
