@@ -1,6 +1,6 @@
 <h1>Crear Nuevo Producto</h1>
-
-<form action="producto/save" method="POST">
+<!-- enctype permite enviar files(archivos) por el formulario -->
+<form action="producto/save" method="POST" enctype="multipart/form-data">
     <label for="nombre">Nombre</label>
     <input type="text" name="nombre">
 
