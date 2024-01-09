@@ -76,4 +76,17 @@ class Producto{
         $productos = $this->db->query("SELECT * FROM productos ORDER BY id DESC;");
         return $productos;
     }
+
+    public function save(){
+        $sql = "INSERT INTO productos VALUES(NULL,{$this->getCategoriaId()},'{$this->getNombre()}','{$this->getDescripcion()}',{$this->getPrecio()},{$this->getStock()},
+                NULL,CURDATE(),NULL);";
+        $save = $this->db->query($sql);
+
+        $resultado = false;
+        if($save){
+            $resultado = true;
+        }
+        return $resultado;
+    }
+
 }
