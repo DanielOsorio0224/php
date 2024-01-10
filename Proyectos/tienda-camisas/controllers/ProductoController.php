@@ -62,4 +62,29 @@ class productoController{
         }else{$_SESSION['producto'] = 'failed';}
         header('Location: index.php');
     }    
+
+    public function editar(){
+
+    }
+
+    public function eliminar(){
+        Utils::isAdmin();
+
+        if(isset($_GET['id'])){
+            $id = $_GET['id'];
+            $producto = new Producto();
+            $producto->setId($id);
+            $delete = $producto->delete();
+
+            if($delete){
+                $_SESSION['delete'] = 'completed';                
+            }else{
+                $_SESSION['delete'] = 'failed';
+            }
+        }else{
+            $_SESSION['delete'] = 'failed';
+        }
+
+        header('Location: index.php');
+    }
 }
