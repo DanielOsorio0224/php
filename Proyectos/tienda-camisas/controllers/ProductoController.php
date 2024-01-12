@@ -38,19 +38,28 @@ class productoController{
                 $producto->setCategoriaId($categoria);
 
                 //Guardar la imagen
-                $file = $_FILES['imagen'];
-                $fileName = $file['name'];
-                $mimeType = $file['type'];
-
-                if($mimeType == "image/jpg" || $mimeType == "image/png" || $mimeType == "image/jpeg" || $mimeType == "image/gif"){
-                    if(!is_dir('uploads/images')){
-                        mkdir('uploads/images', 0777, true);
+                if(isset($_FILES['imagen'])){
+                    $file = $_FILES['imagen'];
+                    $fileName = $file['name'];
+                    $mimeType = $file['type'];
+    
+                    if($mimeType == "image/jpg" || $mimeType == "image/png" || $mimeType == "image/jpeg" || $mimeType == "image/gif"){
+                        if(!is_dir('uploads/images')){
+                            mkdir('uploads/images', 0777, true);
+                        }
+                        $producto->setImagem($fileName);
+                        move_uploaded_file($file['tmp_name'], 'uploads/images'.$fileName);                    
                     }
-                    $producto->setImagem($fileName);
-                    move_uploaded_file($file['tmp_name'], 'uploads/images'.$fileName);                    
+    
                 }
-
-                $save = $producto->save();
+                if(isset($_GET['id'])){
+                    $id = $_GET['id'];
+                    $producto->setId($id);
+                    $save = $producto->edit();
+                }else{
+                    $save = $producto->save();
+                }
+                
 
                 if($save){
                     $_SESSION['producto'] = 'complete';                    
