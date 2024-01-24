@@ -1,0 +1,54 @@
+*{
+    font-family: sans-serif, Helvetica;
+}
+
+h1{
+    text-align: center;
+    margin: 10px auto;
+}
+
+.encabezado_tabla{    
+    display: flex;
+    margin-top: 50px;        
+    justify-content: center;
+}
+
+h3{
+    color: gray;
+    margin-right: 30px;
+}
+
+.agregar{
+    text-decoration: none;
+    padding-top: 18px;    
+    padding-left: 10px;    
+    padding-right: 10px;
+    color: white;
+    background: rgb(37, 230, 37);
+    border: 1px solid black;
+    border-radius: 10px;
+}
+
+table{
+    width: 100%;
+    text-align: center;
+    margin-top: 50px;
+    border: 2px solid cyan;
+}
+
+th, td{
+    border-bottom: 1px solid lightgreen;
+}
+
+.editar, .eliminar{
+    text-decoration: none;
+    font-size: 15px;
+}
+
+.editar{    
+    color: blue;
+    padding-right: 5px;      
+}
+.eliminar{
+    color: red;
+}
