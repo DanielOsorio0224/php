@@ -31,8 +31,8 @@ $dato = $sentencia->fetchAll(PDO::FETCH_OBJ);
                         <td><?= $registro->edad ?></td>
                         <td><?= $registro->email ?></td>
                         <td><?= $registro->password ?></td>
-                        <td><a href="update/form_update.php"><button>Editar</button></a></td>
-                        <td><a href="delete/delete.php"><button>Eliminar</button></a></td>
+                        <td><a href="update/form_update.php?id=<?= $registro->id;?>"><button>Editar</button></a></td>
+                        <td><a href="delete/delete.php?id=<?= $registro->id;?>"><button>Eliminar</button></a></td>
                     </tr> 
             <?php endforeach ?>
         </table>
