@@ -16,4 +16,10 @@
             $conexion->exec("SET CHARACTER SET utf8");
             return $conexion;
         }
+
+        protected function ejecutarConsulta($consulta){
+            $sql=$this->conectar()->prepare($consulta);
+            $sql->execute();
+            return $sql;
+        }
     }
