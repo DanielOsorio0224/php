@@ -21,13 +21,13 @@
                     Usuarios
                 </a>
                 <div class="navbar-dropdown isboxed">
-                    <a href="#" class="navbar-item">
+                    <a href="<?=APP_URL;?>userNew/" class="navbar-item">
                         Nuevo
                     </a>
-                    <a href="#" class="navbar-item">
+                    <a href="<?=APP_URL;?>userList/" class="navbar-item">
                         Lista
                     </a>
-                    <a href="#" class="navbar-item">
+                    <a href="<?=APP_URL;?>userSearch/" class="navbar-item">
                         Buscar
                     </a>
                 </div>
@@ -41,14 +41,14 @@
                     ** USER NAME **
                 </a>
                 <div class="navbar-dropdown is-boxed">
-                    <a href="#" class="navbar-item">
+                    <a href="<?=APP_URL;?>userUpdate/" class="navbar-item">
                         Mi cuenta
                     </a>
-                    <a href="#" class="navbar-item">
+                    <a href="<?=APP_URL;?>userPhoto/" class="navbar-item">
                         Mi foto
                     </a>
                     <hr class="navbar-divider">
-                    <a href="#" class="navbar-item" id="btn_exit">
+                    <a href="<?=APP_URL;?>logOut/" class="navbar-item" id="btn_exit">
                         Salir
                     </a>
                 </div>
