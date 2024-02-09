@@ -44,7 +44,7 @@
             <div class="column">
                 <div class="control">
                     <label>Repetir Clave</label>
-                    <input type="password" class="input" name="usuario_clave_2" pattern="[a-zA-Z0-9$@.-]{7,100}" maxlength="100" required >
+                    <input type="password" class="input" name="usuario_clave_2" pattern="[a-zA-Z0-9$@.-]{7,100}" maxlength="100" required>
                 </div>
             </div>
         </div>
