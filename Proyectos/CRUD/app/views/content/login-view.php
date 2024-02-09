@@ -20,3 +20,9 @@
         </p>
     </form>
 </div>
+
+<?php
+    if(isset($_POST['login_usuario']) && isset($_POST['usuario_clave'])){
+        $insLogin->iniciarSesionControlador();    
+    }
+?>
