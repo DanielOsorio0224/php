@@ -38,13 +38,13 @@
         <div class="navbar-end">
             <div class="navbar-item has-dropdown is-hoverable">
                 <a href="#" class="navbar-link">
-                    ** USER NAME **
+                    ** <?= $_SESSION['usuario'] ?> **
                 </a>
                 <div class="navbar-dropdown is-boxed">
-                    <a href="<?=APP_URL;?>userUpdate/" class="navbar-item">
+                    <a href="<?=APP_URL."userUpdate/".$_SESSION['id']."/";?>" class="navbar-item">
                         Mi cuenta
                     </a>
-                    <a href="<?=APP_URL;?>userPhoto/" class="navbar-item">
+                    <a href="<?=APP_URL."userPhoto/".$_SESSION['id']."/";?>" class="navbar-item">
                         Mi foto
                     </a>
                     <hr class="navbar-divider">
