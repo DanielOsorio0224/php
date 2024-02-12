@@ -378,4 +378,59 @@
             return $tabla;
             
         }
+
+        public function eliminarUsuarioControlador(){
+            $id=$this->limpiarCadena($_POST['usuario_id']);
+
+            if($id==1){
+                $alerta=[
+                    "tipo"=>"simple",
+                    "titulo"=>"Ocurrio un error",
+                    "texto"=>"No podemos eliminar al Admin",
+                    "icono"=>"error"
+                ];
+                return json_encode($alerta);
+                exit();
+            }
+
+            $datos=$this->ejecutarConsulta("SELECT * FROM usuario WHERE usuario_id='$id'");
+
+            if($datos->rowCount()<=0){
+                $alerta=[
+                    "tipo"=>"simple",
+                    "titulo"=>"Ocurrio un error",
+                    "texto"=>"No existe ese usuario",
+                    "icono"=>"error"
+                ];
+                return json_encode($alerta);
+                exit();
+            }else{
+                $datos=$datos->fetch();
+            }
+
+            $eliminarUsuario=$this->eliminarRegistro("usuario","usuario_id",$id);
+
+            if($eliminarUsuario->rowCount()==1){
+
+                if(is_file("../views/fotos/".$datos['usuario_foto'])){
+                    chmod("../views/fotos/".$datos['usuario_foto'],0777);
+                    unlink("../views/fotos/".$datos['usuario_foto']);
+                }
+
+                $alerta=[
+                    "tipo"=>"recargar",
+                    "titulo"=>"usuario eliminado",
+                    "texto"=>"Eliminado con exito a ".$datos['usuario_nombre']." ".$datos['usuario_apellido'] ,
+                    "icono"=>"success"
+                ];                
+            }else{
+                $alerta=[
+                    "tipo"=>"simple",
+                    "titulo"=>"Ocurrio un error",
+                    "texto"=>"No se pudo eliminar el usuario",
+                    "icono"=>"error"
+                ];                
+            }
+            return json_encode($alerta);            
+        }
     }
