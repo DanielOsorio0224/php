@@ -3,18 +3,11 @@
     <h2 class="subtitle">Lista de Usuarios</h2>
 </div>
 <div class="container pb-6 pt-6">
+<?php
+    use app\controllers\userController;
 
-           
-            
+    $insUsuario = new userController();
 
-    
-
-    <nav class="pagination is-centered is-rounded" role="navigation" aria-label="pagination">
-        <a class="pagination-previous is-disabled" disabled="">Anterior</a>
-
-            <ul class="pagination-list">
-                <li><a class="pagination-link is-current" href="#">1</a></li>
-            </ul>
-        <a class="pagination-next is-disabled" disabled="">Siguiente</a>    
-    </nav>
+    echo $insUsuario->listrarUsuarioControlador($url[1],15,$url[0],"");
+?>
 </div>
