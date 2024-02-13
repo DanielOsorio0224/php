@@ -433,4 +433,271 @@
             }
             return json_encode($alerta);            
         }
+
+        public function actualizarUsuarioControlador(){
+            $id=$this->limpiarCadena($_POST['usuario_id']);
+
+            $datos=$this->ejecutarConsulta("SELECT * FROM usuario WHERE usuario_id='$id'");
+
+            if($datos->rowCount()<=0){
+                $alerta=[
+                    "tipo"=>"simple",
+                    "titulo"=>"Ocurrio un error",
+                    "texto"=>"No existe ese usuario",
+                    "icono"=>"error"
+                ];
+                return json_encode($alerta);
+                exit();
+            }else{
+                $datos=$datos->fetch();
+            }
+            
+            $admin_usuario=$this->limpiarCadena($_POST['administrador_usuario']);
+            $admin_clave=$this->limpiarCadena($_POST['administrador_clave']);
+
+            if($admin_usuario=="" || $admin_clave=""){
+                $alerta=[
+                    "tipo"=>"simple",
+                    "titulo"=>"Ocurrio un error",
+                    "texto"=>"No existe el admin",
+                    "icono"=>"error"
+                ];
+                return json_encode($alerta);
+                exit();
+            }
+
+            if($this->verificarDatos("[a-zA-Z0-9]{4-20}",$admin_usuario)){
+                $alerta=[
+                    "tipo"=>"simple",
+                    "titulo"=>"Ocurrio un error",
+                    "texto"=>"No sirve el usuario ",
+                    "icono"=>"error"
+                ];
+                return json_encode($alerta);
+                exit();
+            }
+
+            if($this->verificarDatos("[a-zA-Z0-9@.-]{7-100}",$admin_clave)){
+                $alerta=[
+                    "tipo"=>"simple",
+                    "titulo"=>"Ocurrio un error",
+                    "texto"=>"No sirve la clave",
+                    "icono"=>"error"
+                ];
+                return json_encode($alerta);
+                exit();
+            }
+            $check_admin=$this->ejecutarConsulta("SELECT * FROM usuario WHERE usuario_usuario='$admin_usuario'
+            AND usuario_id='".$_SESSION['id']."'");
+            if($check_admin->rowCount()==1){
+                $check_admin=$check_admin->fetch();
+
+                if($check_admin['usuario_usuario']!=$admin_usuario ||
+                 !password_verify($admin_clave,$check_admin['usuario_clave'])){
+                    $alerta=[
+                        "tipo"=>"simple",
+                        "titulo"=>"Ocurrio un error",
+                        "texto"=>"No coincide el usuario o la contraseña",
+                        "icono"=>"error"
+                    ];
+                    return json_encode($alerta);
+                    exit();    
+                }
+            }else{
+                $alerta=[
+                    "tipo"=>"simple",
+                    "titulo"=>"Ocurrio un error",
+                    "texto"=>"No existe el usuario",
+                    "icono"=>"error"
+                ];
+                return json_encode($alerta);
+                exit();
+            }
+
+            $nombre=$this->limpiarCadena($_POST['usuario_nombre']);
+            $apellido=$this->limpiarCadena($_POST['usuario_apellido']);
+
+            $usuario=$this->limpiarCadena($_POST['usuario_usuario']);
+            $email=$this->limpiarCadena($_POST['usuario_email']);
+            $clave1=$this->limpiarCadena($_POST['usuario_clave_1']);
+            $clave2=$this->limpiarCadena($_POST['usuario_clave_2']);
+
+            if($nombre=="" || $apellido=="" || $usuario=="" ){
+                $alerta=[
+                    "tipo"=>"simple",
+                    "titulo"=>"Ocurrio un error",
+                    "texto"=>"No has llenado todos los campos",
+                    "icono"=>"error"
+                ];
+                return json_encode($alerta);
+                exit();
+            }
+
+            if($this->verificarDatos("[a-zA-ZáéíóúÁÉÍÓÚñÑ]{3,40}",$nombre)){
+                $alerta=[
+                    "tipo"=>"simple",
+                    "titulo"=>"Ocurrio un error",
+                    "texto"=>"No coincide el nombre ingresado con el formato solicitado",
+                    "icono"=>"error"
+                ];
+                return json_encode($alerta);
+                exit();
+            }
+
+            if($this->verificarDatos("[a-zA-ZáéíóúÁÉÍÓÚñÑ]{3,40}",$apellido)){
+                $alerta=[
+                    "tipo"=>"simple",
+                    "titulo"=>"Ocurrio un error",
+                    "texto"=>"No coincide el apellido ingresado con el formato solicitado",
+                    "icono"=>"error"
+                ];
+                return json_encode($alerta);
+                exit();
+            }
+
+            if($this->verificarDatos("[a-zA-Z0-9]{2,40}",$usuario)){
+                $alerta=[
+                    "tipo"=>"simple",
+                    "titulo"=>"Ocurrio un error",
+                    "texto"=>"El usuario no cumple los requisitos solicitados",
+                    "icono"=>"error"
+                ];
+                return json_encode($alerta);
+                exit();
+            }        
+
+            if($email!="" && $datos['usuario_email'] != $email){
+                if(filter_var($email,FILTER_VALIDATE_EMAIL)){
+                    $check_email=$this->ejecutarConsulta("SELECT usuario_email FROM usuario WHERE usuario_email='$email'");
+
+                    if($check_email->rowCount()>0){
+                        $alerta=[
+                            "tipo"=>"simple",
+                            "titulo"=>"Ocurrio un error",
+                            "texto"=>"El email ya existe",
+                            "icono"=>"error"
+                        ];
+                        return json_encode($alerta);
+                        exit();
+                    }
+                }else{
+                    $alerta=[
+                        "tipo"=>"simple",
+                        "titulo"=>"Ocurrio un error",
+                        "texto"=>"El email es incorrecto",
+                        "icono"=>"error"
+                    ];
+                    return json_encode($alerta);
+                    exit();
+                }
+            }
+
+            if($clave1!="" || $clave2!=""){
+
+                if($this->verificarDatos("[a-zA-Z0-9$@.-]{7,100}",$clave1) &&
+                $this->verificarDatos("[a-zA-Z0-9$@.-]{7,100}",$clave2)){
+                $alerta=[
+                    "tipo"=>"simple",
+                    "titulo"=>"Ocurrio un error",
+                    "texto"=>"La clave no es la indicada",
+                    "icono"=>"error"
+                ];
+                return json_encode($alerta);
+                exit();
+            }else{
+                if($clave1 != $clave2){
+                    $alerta=[
+                        "tipo"=>"simple",
+                        "titulo"=>"Ocurrio un error",
+                        "texto"=>"La claves no coinciden",
+                        "icono"=>"error"
+                    ];
+                    return json_encode($alerta);
+                    exit();    
+                }else{
+                    $clave=password_hash($clave1,PASSWORD_BCRYPT,["cost"=>10]);
+                }               
+            }                
+            }else{
+                $clave=$datos['usuario_clave'];
+            }
+            if($datos['usuario_usuario'] != $usuario){
+                $check_usuario = $this->ejecutarConsulta("SELECT usuario_usuario FROM usuario WHERE usuario_usuario='$usuario'");
+                if($check_usuario->rowCount()>0){
+                $alerta=[
+                    "tipo"=>"simple",
+                    "titulo"=>"Ocurrio un error",
+                    "texto"=>"El usuario ya existe",
+                    "icono"=>"error"
+                ];
+                return json_encode($alerta);
+                exit();
+            }
+            }
+
+            $usuario_datos_up=[
+                [
+                    "campo_nombre"=>"usuario_nombre",
+                    "campo_marcador"=>":Nombre",
+                    "campo_valor"=>$nombre
+                ],
+                [
+                    "campo_nombre"=>"usuario_apellido",
+                    "campo_marcador"=>":Apellido",
+                    "campo_valor"=>$apellido
+                ],
+                [
+                    "campo_nombre"=>"usuario_email",
+                    "campo_marcador"=>":Email",
+                    "campo_valor"=>$email
+                ],
+                [
+                    "campo_nombre"=>"usuario_usuario",
+                    "campo_marcador"=>":Usuario",
+                    "campo_valor"=>$usuario
+                ],
+                [
+                    "campo_nombre"=>"usuario_clave",
+                    "campo_marcador"=>":Clave",
+                    "campo_valor"=>$clave
+                ],                                
+                [
+                    "campo_nombre"=>"usuario_actualizado",
+                    "campo_marcador"=>":Actualizado",
+                    "campo_valor"=>date("Y-m-d H:i:s")
+                ]
+            ];
+
+            $condicion=[                
+                    "condicion_campo"=>"usuario_id",
+                    "condicion_marcador"=>":Id",
+                    "condicion_valor"=>$id             
+                ];
+
+            if($this->actualizarDatos("usuario",$usuario_datos_up,$condicion)){
+
+                if($id==$_SESSION['id']){
+                    $_SESSION['nombre']=$nombre;
+                    $_SESSION['apellido']=$apellido;
+                    $_SESSION['usuario']=$usuario;
+                }
+
+                $alerta=[
+                    "tipo"=>"recargar",
+                    "titulo"=>"usuario actualizado",
+                    "texto"=>"El usuario ".$datos['usuario_nombre']." "
+                    .$datos['usuario_apellido']." fue actualizado correctamente.",
+                    "icono"=>"success"
+
+                ];
+            }else{
+                $alerta=[
+                    "tipo"=>"simple",
+                    "titulo"=>"Ocurrio un error",
+                    "texto"=>"No se pudo actualizar el usuario",
+                    "icono"=>"error"
+                ];
+            }    
+            return json_encode($alerta);
+        }
     }
