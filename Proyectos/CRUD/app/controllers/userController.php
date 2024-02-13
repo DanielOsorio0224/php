@@ -844,5 +844,96 @@
                     ];
                 }    
                 return json_encode($alerta);
+        }
+
+        public function eliminarFotoUsuarioControlador(){
+            $id=$this->limpiarCadena($_POST['usuario_id']);
+
+            $datos=$this->ejecutarConsulta("SELECT * FROM usuario WHERE usuario_id='$id'");
+
+            if($datos->rowCount()<=0){
+                $alerta=[
+                    "tipo"=>"simple",
+                    "titulo"=>"Ocurrio un error",
+                    "texto"=>"No existe ese usuario",
+                    "icono"=>"error"
+                ];
+                return json_encode($alerta);
+                exit();
+            }else{
+                $datos=$datos->fetch();
             }
-    }
+
+            $img_dir="../views/fotos/";
+
+            chmod($img_dir,0777);
+
+            if(is_file($img_dir.$datos['usuario_foto'])){
+                chmod($img_dir.$datos['usuario_foto'],0777);
+
+                if(!unlink($img_dir.$datos['usuario_foto'])){
+                    $alerta=[
+                        "tipo"=>"simple",
+                        "titulo"=>"Ocurrio un error",
+                        "texto"=>"Error al eliminar la foto",
+                        "icono"=>"error"
+                    ];
+                    return json_encode($alerta);
+                    exit();
+                }
+            }else{
+                $alerta=[
+                    "tipo"=>"simple",
+                    "titulo"=>"Ocurrio un error",
+                    "texto"=>"No se encontro la foto",
+                    "icono"=>"error"
+                ];
+                return json_encode($alerta);
+                exit();
+            }
+
+            $usuario_datos_up=[                    
+                [
+                    "campo_nombre"=>"usuario_foto",
+                    "campo_marcador"=>":Foto",
+                    "campo_valor"=>""
+                ],                                
+                [
+                    "campo_nombre"=>"usuario_actualizado",
+                    "campo_marcador"=>":Actualizado",
+                    "campo_valor"=>date("Y-m-d H:i:s")
+                ]
+            ];
+
+            $condicion=[                
+                    "condicion_campo"=>"usuario_id",
+                    "condicion_marcador"=>":Id",
+                    "condicion_valor"=>$id             
+                ];
+
+            if($this->actualizarDatos("usuario",$usuario_datos_up,$condicion)){
+
+                if($id==$_SESSION['id']){
+                    $_SESSION['foto']="";
+                }
+
+                $alerta=[
+                    "tipo"=>"recargar",
+                    "titulo"=>"Foto eliminada",
+                    "texto"=>"La foto del usuario ".$datos['usuario_nombre']." "
+                    .$datos['usuario_apellido']." fue eliminada.",
+                    "icono"=>"success"
+
+                ];
+            }else{
+                $alerta=[
+                    "tipo"=>"recargar",
+                    "titulo"=>"Foto eliminada",
+                    "texto"=>"No se actualizaron algunos datos de ".$datos['usuario_nombre']." "
+                    .$datos['usuario_apellido']." pero se elimino la foto.",
+                    "icono"=>"warning"
+                ];
+            }    
+            return json_encode($alerta);
+        }    
+}
